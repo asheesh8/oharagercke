@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+/* ============================================================
+   O'Hara & Gercke — earthy architectural design system
+   Palette drawn from the firm's own interior photography.
+   ============================================================ */
+
+@theme {
+  /* Surfaces */
+  --color-bone: #f4f0e8;
+  --color-cream: #fbf8f2;
+  --color-paper: #ffffff;
+  --color-sand: #ece4d5;
+
+  /* Ink & text */
+  --color-ink: #211e19;
+  --color-graphite: #3a352d;
+  --color-stone: #6f675a;
+  --color-mist: #9a9285;
+
+  /* Lines */
+  --color-line: #e5ddce;
+  --color-line-strong: #d8cdb8;
+
+  /* Brand accents */
+  --color-clay: #a8452f;      /* terracotta — primary */
+  --color-clay-deep: #8a3624;
+  --color-clay-soft: #c98a6f;
+  --color-oak: #bd8b4f;       /* warm gold/wood */
+  --color-oak-soft: #d9b783;
+
+  /* Deep / immersive */
+  --color-forest: #26302a;
+  --color-forest-deep: #1b231e;
+  --color-charcoal: #1b1916;
+  --color-charcoal-deep: #131110;
+
+  /* Fonts */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  /* Radii */
+  --radius-xl: 1rem;
+  --radius-2xl: 1.375rem;
+  --radius-3xl: 1.75rem;
+  --radius-4xl: 2.25rem;
+
+  /* Easing */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Animations */
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 42s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-clay);
+    color: #fff;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-strong) transparent;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .rule {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-line-strong), transparent);
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.055;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  }
+}

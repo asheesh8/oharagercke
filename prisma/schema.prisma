@@ -1,0 +1,97 @@
+// O'Hara & Gercke — data model
+// Postgres (Supabase) in production; the app also runs with no DATABASE_URL
+// by falling back to lib/seed-data.ts (see lib/content.ts).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Project {
+  id          String         @id @default(cuid())
+  slug        String         @unique
+  title       String
+  location    String
+  region      String
+  category    String
+  excerpt     String
+  description String
+  credits     Json           @default("[]")
+  coverImage  String
+  order       Int            @default(0)
+  featured    Boolean        @default(false)
+  published   Boolean        @default(true)
+  images      ProjectImage[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@index([published, order])
+}
+
+model ProjectImage {
+  id        String  @id @default(cuid())
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  url       String
+  alt       String  @default("")
+  order     Int     @default(0)
+
+  @@index([projectId, order])
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  quote     String
+  town      String
+  order     Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  email     String   @default("")
+  bio       String   @default("")
+  photo     String?
+  order     Int      @default(0)
+  published Boolean  @default(true)
+}
+
+model SiteSetting {
+  id           String   @id @default("singleton")
+  companyName  String
+  tagline      String
+  heroHeadline String
+  heroSubhead  String
+  address      String
+  phone        String
+  email        String
+  heroVideo    String
+  heroPoster   String
+  updatedAt    DateTime @updatedAt
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String   @default("")
+  message   String
+  handled   Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String   @default("Admin")
+  createdAt    DateTime @default(now())
+}
