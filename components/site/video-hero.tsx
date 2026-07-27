@@ -49,10 +49,10 @@ export function VideoHero({
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[100svh] items-end overflow-hidden bg-charcoal-deep pb-14 pt-28 sm:pb-20"
+      className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-charcoal-deep pb-14 pt-28 sm:pb-20"
     >
       {/* Video */}
-      <motion.div style={{ y, scale }} className="absolute inset-0 -z-10">
+      <motion.div style={{ y, scale }} className="absolute inset-0 z-0">
         <video
           ref={videoRef}
           className="size-full object-cover"
@@ -70,11 +70,11 @@ export function VideoHero({
       {/* Scrims */}
       <motion.div
         style={{ opacity: overlay }}
-        className="absolute inset-0 -z-10 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/40 to-charcoal-deep/30"
+        className="absolute inset-0 z-10 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/40 to-charcoal-deep/30"
       />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-charcoal-deep/70 via-transparent to-transparent" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-charcoal-deep/70 via-transparent to-transparent" />
 
-      <div className="mx-auto w-full max-w-[82rem] px-5 sm:px-8">
+      <div className="relative z-20 mx-auto w-full max-w-[82rem] px-5 sm:px-8">
         <motion.div
           initial="hidden"
           animate="show"
@@ -171,7 +171,7 @@ export function VideoHero({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.1, duration: 0.8 }}
-        className="pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-cream/50 sm:flex"
+        className="pointer-events-none absolute bottom-6 left-1/2 z-20 hidden -translate-x-1/2 flex-col items-center gap-2 text-cream/50 sm:flex"
       >
         <span className="text-[0.65rem] uppercase tracking-[0.25em]">Scroll</span>
         <span className="flex h-9 w-5 items-start justify-center rounded-full border border-cream/30 p-1">
