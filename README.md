@@ -26,12 +26,11 @@ pnpm dev
 
 Open <http://localhost:3000>. The admin lives at <http://localhost:3000/admin>.
 
-**Dev admin login** (from `.env.local`, used only when no database is connected):
+**Dev admin login** (used only when no database is connected): set `ADMIN_EMAIL`
+and `ADMIN_PASSWORD_HASH` in `.env.local`, then sign in with that email and the
+password you hashed.
 
-- Email: `admin@oharagercke.com`
-- Password: `ohgadmin2026`
-
-> Change these before deploying. `ADMIN_PASSWORD_HASH` is a bcrypt hash; regenerate with
+> `ADMIN_PASSWORD_HASH` is a bcrypt hash; generate it with
 > `node -e "console.log(require('bcryptjs').hashSync('YOUR_PASSWORD',10))"` and remember to
 > escape each `$` as `\$` inside the `.env` file.
 
