@@ -7,6 +7,13 @@ import {
   projectImages,
 } from "./seed-data";
 
+/*
+ * Public read layer. Every getter reads Postgres when DATABASE_URL is set and
+ * otherwise maps lib/seed-data.ts into the same view shapes, so pages never
+ * need to know which source they got. Only published content is returned here;
+ * drafts are read through lib/admin-data.ts.
+ */
+
 /* ---------- View types (shared shape for DB + seed fallback) ---------- */
 
 export type Credit = { role: string; name: string };

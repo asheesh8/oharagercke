@@ -4,6 +4,8 @@ A full rebuild of [oharagercke.com](https://oharagercke.com) for **O'Hara & Gerc
 custom homebuilder in the Upper Valley of Vermont & New Hampshire — an immersive public site
 plus a brand-matched, login-protected admin backend the firm can run itself.
 
+**Live:** https://oharagercke.vercel.app
+
 - **Public site** — video-hero home, bento portfolio with filtering, per-project galleries with
   a lightbox, about, testimonials, and a contact form that saves enquiries.
 - **Studio Admin** (`/admin`) — manage projects (drag-to-reorder, image uploads, gallery,
@@ -119,3 +121,15 @@ calls `revalidatePath` so the site refreshes.
   existing site (e.g. *Rob Karosis Photography*, *Smith & Vansant Architects*).
 - Secrets (`.env`, `.env.local`) are git-ignored; `.env.example` documents every variable.
 ```
+
+## Environment variables
+
+Names only; `.env.example` explains each one. The public site needs none of them.
+
+| Variable | Needed for |
+|---|---|
+| `JWT_SECRET` | Signing the 7-day admin session (required for admin) |
+| `ADMIN_EMAIL`, `ADMIN_PASSWORD_HASH` | Fallback admin login when no database is connected |
+| `ADMIN_PASSWORD` | Used once by the seed to create the database admin user |
+| `DATABASE_URL`, `DIRECT_URL` | Supabase Postgres — pooled connection for the app, direct for migrations |
+| `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_STORAGE_BUCKET` | Admin image uploads to Supabase Storage (server-only) |
