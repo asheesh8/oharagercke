@@ -8,6 +8,8 @@ const SUPA_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const BUCKET = process.env.SUPABASE_STORAGE_BUCKET || "media";
 
 /** Uploads go to Supabase Storage in production, local /public/uploads in dev. */
+// Local writes only make sense in development: on Vercel the filesystem is
+// read-only and per-instance, so production must have the Supabase vars set.
 export const usingSupabaseStorage = Boolean(SUPA_URL && SUPA_KEY);
 
 export async function saveUpload(
@@ -15,6 +17,8 @@ export async function saveUpload(
   filename: string,
   contentType: string
 ): Promise<string> {
+  // Timestamp prefix keeps names unique, so two uploads of "photo.jpg" never
+  // overwrite each other; the character filter keeps the key URL-safe.
   const safe = `${Date.now()}-${filename.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
 
   if (usingSupabaseStorage) {
