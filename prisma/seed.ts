@@ -84,7 +84,12 @@ async function main() {
   const email = (process.env.ADMIN_EMAIL || "admin@oharagercke.com")
     .trim()
     .toLowerCase();
-  const password = process.env.ADMIN_PASSWORD || "ohgadmin2026";
+  // No default: a fallback password here would be readable by anyone, since
+  // this repository is public.
+  const password = process.env.ADMIN_PASSWORD;
+  if (!password || password.length < 12) {
+    throw new Error("Set ADMIN_PASSWORD (12+ characters) before seeding.");
+  }
   const passwordHash = await bcrypt.hash(password, 10);
   await prisma.adminUser.upsert({
     where: { email },
